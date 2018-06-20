@@ -1,0 +1,37 @@
+<?php /** @var $block \Magento\Framework\View\Element\Template */ ?>
+<?php
+$enabled = $this->helper('Adinton\Tracking\Helper\Data')->isEnabled();
+
+if ($enabled){
+    $ns = $this->helper('Adinton\Tracking\Helper\Data')->getNs();
+    ?>
+
+
+<script>
+    (function () {
+        let ns = "<?php echo $block->escapeJsQuote($ns)?>";
+        let _adn = []; //_adn ||
+        let adnv = decodeURIComponent((new RegExp('[?|&]_adnv=([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || "";
+        let cName = "";
+        let acc = "";
+        if (adnv == "") {
+        let cookArr = document.cookie.split('; ');
+        for (let bb = 0; bb < cookArr.length; bb++) {
+            if (cookArr[bb].split('=')[0] == 'adsmkt_ns')
+                acc = unescape(cookArr[bb].split('=')[1]).replace(/ +$/, '');
+            }
+        }
+        _adn.push(['_setDomain', document.domain], ['_setAdnv', adnv], ['_setNamespace', ns], ['_setAccount', acc]);
+
+        define('adn',['//prod.adinton.com/tag/tags?dn=' + _adn[0][1] + '&adnv=' + _adn[1][1] + '&ns=' + _adn[2][1] + '&acc=' + _adn[3][1]], function () {
+            //console.log('adinton defined');
+            return _adn;
+        });
+
+        require(['adn'], function () {
+            //console.log('adinton called');
+        });
+    })();
+</script>
+
+<?php }

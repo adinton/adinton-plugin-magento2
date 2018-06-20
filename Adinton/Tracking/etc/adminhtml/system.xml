@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="adinton" translate="label" sortOrder="1000">
+            <label>Adinton Tacking</label>
+        </tab>
+        <section id="adinton_section" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Configuration</label>
+            <tab>adinton</tab>
+            <resource>Adinton_Tacking::settings</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="enabled" type="select" translate="label,comment,tooltip" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>adinton/settings/enabled</config_path>
+                    <comment>Enable Tracking or not.</comment>
+                    <tooltip>Enable Tracking or not.</tooltip>
+                </field>
+                <field id="ns" type="text" translate="label,comment,tooltip" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Name</label>
+                    <validate>required-entry</validate>
+                    <config_path>adinton/settings/ns</config_path>
+                    <comment>the 'ns' variable.</comment>
+                    <tooltip>the 'ns' variable.</tooltip>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

@@ -1,0 +1,29 @@
+<?php /** @var $block \Magento\Framework\View\Element\Template */ ?>
+<?php
+$enabled = $this->helper('Adinton\Tracking\Helper\Data')->isEnabled();
+
+if ($enabled){
+?>
+<script type="text/javascript">
+    require(['adn'], function (_adnX) {
+        var o_type = 'ventas';
+        var o_email = '<?php echo $this->escapeHtml($this->getCustomerEmail()) ?>';
+        var o_amount = '<?php echo $this->escapeHtml($this->getOrderAmount()) ?>';
+        var o_product_id = 0;
+        var o_tran_id = '<?php echo $this->escapeHtml($this->getOrderId()) ?>';
+
+        (function(){
+            adnL = 1; //script issue
+            _adn = _adnX;
+            _adn.push(['_cparams', {
+                "conversion_type":o_type,
+                "email":o_email,
+                "amount":o_amount,
+                "transaction_id":o_tran_id
+            } ]);
+            adn_mconv=true; adn_cfimg=0; function adnConversionFunction() { if (typeof adnConv=='function') adnConv();
+            else{ var re=new RegExp("adsmkt_"+_adn[4][1]+"=([^;]+)"); var value=re.exec(document.cookie);}} adnConversionFunction();
+        })();
+    });
+</script>
+<?php }

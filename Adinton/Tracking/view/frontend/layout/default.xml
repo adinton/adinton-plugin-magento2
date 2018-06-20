@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- click tracking -->
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="adinton_part1_js"
+                   as="adinton_part1_js"
+                   template="Adinton_Tracking::jspart1.phtml"/>
+        </referenceContainer>
+        <!-- conversion tracking -->
+        <referenceContainer name="order.success.additional.info">
+            <block class="Adinton\Tracking\Block\Conversion"
+                   name="adinton_part2_js"
+                   template="Adinton_Tracking::jspart2.phtml"
+                   after="-">
+            </block>
+        </referenceContainer>
+    </body>
+</page>
+
+
